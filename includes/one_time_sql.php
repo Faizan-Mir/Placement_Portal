@@ -22,16 +22,37 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Creating a Table for our form entries named formEntries
 // This Table contains four columns viz Name, Email, DOB and About_Yourself. 
 
-$conn->query('CREATE TABLE Offers (
-Offer_ID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-Enrolment_Number VARCHAR(100) ,
-Company_ID INT FOREIGN KEY,
-CTC INT,
+$result = $conn->query(' CREATE TABLE Jobs(
+Job_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Company_ID INT NOT NULL,
+CTC INT NOT NULL,
 Base_Pay INT,
-Remarks VARCHAR(2000),
-FOREIGN KEY (Enrolment_Number) REFERENCES Student_Data(Enrolment_Number)
+Blocking_Status ENUM("Blocked Permanently", "Blocked Till L11", "Blocked Till LU", "Non Blocking") NOT NULL,
+Offer_Type ENUM("Intern + FT", "Intern Only", "Intern + Performance Based", "Full Time Only") NOT NULL,
+Remarks VARCHAR(2000)
+)');
+
+if($result){
+  echo "Done";
+}
+else{
+  echo ($conn->error); 
+}
+
+$result = $conn->query('CREATE TABLE Offers (
+Offer_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Job_ID INT,
+Enrolment_Number VARCHAR(100) NOT NULL ,
+Offer_Date DATE
+
 )');  
 
+if($result){
+  echo "Done";
+}
+else{
+  echo ($conn->error); 
+}
 
 $result = $conn->query('CREATE TABLE Student_Data (
     Enrolment_Number VARCHAR(20) PRIMARY KEY,
