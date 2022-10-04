@@ -22,28 +22,42 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Creating a Table for our form entries named formEntries
 // This Table contains four columns viz Name, Email, DOB and About_Yourself. 
 
-$conn->query('CREATE TABLE offers (
-Name VARCHAR(100) NOT NULL,
-Enrolment_Number VARCHAR(100) PRIMARY KEY,
-Company_Name VARCHAR(1000) NOT NULL
+$conn->query('CREATE TABLE Offers (
+Offer_ID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Enrolment_Number VARCHAR(100) ,
+Company_ID INT FOREIGN KEY,
+CTC INT,
+Base_Pay INT,
+Remarks VARCHAR(2000),
+FOREIGN KEY (Enrolment_Number) REFERENCES Student_Data(Enrolment_Number)
 )');  
 
 
-$conn->query('CREATE TABLE Student_Data(
+$result = $conn->query('CREATE TABLE Student_Data (
     Enrolment_Number VARCHAR(20) PRIMARY KEY,
-    Registration_Number VARCHAR(20) NOT NULL,
+    Registration_Number VARCHAR(20) ,
     Name VARCHAR(100) NOT NULL,
     Branch ENUM("CSE","IT","ECE","ELE","MEC","CIV","CHE","MME") NOT NULL,
-    Batch ENUM(2019,2020,2021,2022,2023) NOT NULL,
-    CGPA DECIMAL(7,4),
+    Batch VARCHAR(10),
+    CGPA FLOAT(5),
     Phone_Number BIGINT(10),
     College_Email_ID VARCHAR(100),
     Alternate_Email_ID VARCHAR(100),
     Resume_Link VARCHAR(500),
-    Placement_Status ENUM("Unplaced","Permanently_Blocked")
-
+    Placement_Status ENUM("Unplaced","Permanently_Blocked"),
+    Final_Offer_ID VARCHAR(15)
     
     )
 ');
+
+if($result){
+  echo "Done";
+}
+else{
+  echo ($conn->error); 
+}
+
+
+
 
 ?>

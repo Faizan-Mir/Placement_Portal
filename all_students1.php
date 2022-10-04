@@ -11,8 +11,8 @@ require('includes/database_connection.php');
           while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
            {
 
-            $sql = "INSERT INTO offers 
-VALUES ('".$getData[0]."', '".$getData[1]."', '".$getData[2]."')";
+            $sql = "INSERT INTO Student_Data 
+VALUES ('".$getData[0]."', '".$getData[1]."', '".$getData[2]."', '".$getData[3]."', '".$getData[4]."', '".$getData[5]."', '".$getData[6]."', '".$getData[7]."', '".$getData[8]."', '".$getData[9]."', '".$getData[10]."', '".$getData[11]."')";
    
            
 
